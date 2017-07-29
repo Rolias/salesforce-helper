@@ -8,7 +8,7 @@
     "start": "nodemon lib/index.js",
     "security-check": "nsp check",
     "lint": "esw src lib buildScripts --color",
-    "test": "mocha --reporter progress \"lib/**/*.test.js\"",
+    "test": "mocha --reporter progress \"lib/**/*.test.js\""
   },
   "repository": {
     "type": "git",
