@@ -1,0 +1,21 @@
+{
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module",
+        "code": 132
+    },
+    "plugins": [],
+    "env": {
+        "node": true,
+        "mocha": true
+    },
+    "rules": {
+        "no-console": "warn",
+        "max-len": [1, {
+            "code": 132,
+            "ignoreStrings": true
+        }],
+        "eol-last": "off"
+    }
+}
