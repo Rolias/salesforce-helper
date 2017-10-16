@@ -1,45 +1,43 @@
 {
-  "name": "basic-starter-kit",
-  "version": "1.0.0",
-  "description": "A basic project for running some node.js code with tests",
-  "main": "index.js",
-  "scripts": {
-    "prestart": "node ./buildScripts/startMessage.js",
-    "start": "npm-run-all --parallel security-check start:src lint:watch test:watch",
-    "start:src": "node lib/index.js",
-    "start:loop": "nodemon lib/index.js",
-    "security-check": "nsp check",
-    "lint": "esw src lib buildScripts --color",
-    "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter progress \"lib/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Rolias/basic-starter-kit.git"
-  },
-  "keywords": [
-    "tdd",
-    "starter-kit"
-  ],
-  "author": "Tod Gentille",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Rolias/basic-starter-kit/issues"
-  },
-  "homepage": "https://github.com/Rolias/basic-starter-kit#readme",
-  "dependencies": {
-    "chalk": "2.0.1",
-    "nsp": "2.6.3"
-  },
-  "devDependencies": {
-    "chai": "4.1.0",
-    "eslint": "4.3.0",
-    "eslint-config-google": "0.9.1",
-    "eslint-plugin-node": "5.1.1",
-    "eslint-watch": "3.1.2",
-    "mocha": "3.4.2",
-    "npm-run-all": "4.0.2",
-    "sinon": "2.3.8"
-  }
+	"name": "basic-starter-kit",
+	"version": "1.0.0",
+	"engines": { "node": ">=4.0.0" },
+	"description": "A basic project for running some node.js code with tests",
+	"main": "index.js",
+	"scripts": {
+		"prestart": "node ./buildScripts/startMessage.js",
+		"start": "npm-run-all --parallel security-check start:src lint:watch test:watch",
+		"start:src": "node lib/index.js",
+		"start:loop": "nodemon lib/index.js",
+		"security-check": "nsp check",
+		"lint": "esw src lib buildScripts --color",
+		"lint:watch": "npm run lint -- --watch",
+		"test": "mocha --reporter progress \"lib/**/*.test.js\"",
+		"test:watch": "npm run test -- --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:Rolias/basic-starter-kit.git"
+	},
+	"keywords": ["tdd", "starter-kit"],
+	"author": "Tod Gentille",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Rolias/basic-starter-kit/issues"
+	},
+	"homepage": "https://github.com/Rolias/basic-starter-kit#readme",
+	"dependencies": {
+		"chalk": "2.0.1",
+		"nsp": "2.6.3"
+	},
+	"devDependencies": {
+		"chai": "4.1.0",
+		"eslint": "4.3.0",
+		"eslint-config-google": "0.9.1",
+		"eslint-plugin-node": "5.1.1",
+		"eslint-watch": "3.1.2",
+		"mocha": "3.4.2",
+		"npm-run-all": "4.0.2",
+		"sinon": "2.3.8"
+	}
 }
