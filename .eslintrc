@@ -1,0 +1,25 @@
+{
+	"extends": ["eslint:recommended"],
+	"parserOptions": {
+		"ecmaVersion": 7,
+		"sourceType": "module",
+		"code": 132
+	},
+	"plugins": ["node"],
+	"env": {
+		"node": true,
+		"mocha": true
+	},
+	"rules": {
+		"no-console": "off",
+		"max-len": [
+			1,
+			{
+				"code": 132,
+				"ignoreStrings": true
+			}
+		],
+		"eol-last": "off",
+		"node/exports-style": ["error", "module.exports"]
+	}
+}
