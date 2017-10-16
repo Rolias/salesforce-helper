@@ -5,10 +5,14 @@
   "main": "index.js",
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
-    "start": "nodemon lib/index.js",
+    "start": "npm-run-all --parallel security-check start:src lint:watch test:watch",
+    "start:src": "node lib/index.js",
+    "start:loop": "nodemon lib/index.js",
     "security-check": "nsp check",
     "lint": "esw src lib buildScripts --color",
-    "test": "mocha --reporter progress \"lib/**/*.test.js\""
+    "lint:watch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress \"lib/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
