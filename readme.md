@@ -28,6 +28,7 @@ This is a reminder how to get back to just the eslint recommended settings inste
 		"eol-last": "off"
 	}
 }
+```
 
 ## Basic Git Stuff
 
