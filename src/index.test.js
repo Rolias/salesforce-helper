@@ -6,7 +6,7 @@ const logger = require("./util/logger")
 describe("name or description of test", () => {
   // beforeEach ( () =>{});
   // afterEach ( () =>{});
-  it("should pass", () => {
+  it("should pass theses", () => {
     expect(true).to.equal(true)
   })
 

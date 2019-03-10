@@ -20,3 +20,8 @@ After those two commands are run, VScode can do push and pull
 
 Don't forget to `npm install`
 to install all the packages in the package.json
+
+## Dependencies
+
+The only dependency for the non-development side is winston for logging.  
+Packages all use "x" for the semver flag so on a new project the latest versions will get pulled in.
