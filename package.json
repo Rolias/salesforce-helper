@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">10.0.0"
   },
   "description": "A basic project for running some node.js code with tests",
   "main": "index.js",
@@ -21,20 +21,11 @@
     "test:cov": "nyc mocha \"src/**/*.test.js\"",
     "watch": "run-p lint:watch test:watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:Rolias/basic-starter-kit.git"
-  },
   "keywords": [
-    "tdd",
     "starter-kit"
   ],
   "author": "Tod Gentille",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Rolias/basic-starter-kit/issues"
-  },
-  "homepage": "https://github.com/Rolias/basic-starter-kit#readme",
   "dependencies": {
     "winston": "x"
   },
