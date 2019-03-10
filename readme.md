@@ -1,7 +1,5 @@
 # Bare Bones Starter Kit
 
-## Bare Bones Starter Kit
-
 This is a pretty bare bones starter kit. It does have support for mocha and linting. None of the linting or testing is run automatically. While there is a .travis.yml file it doesn't have to do anything. See the alm-starter-kit (Application Life Cycle management) for a more comprehensive Continuous Deployment approach.
 
 ## Basic Git Stuff
@@ -14,7 +12,7 @@ At the command line
 git init
 #update the readme and commit locally in vscode
 #change basic-starter-kit.git to the name of the new github repo
-git remote add origin git@github.com:Rolias/basic-starter-kit.git
+git remote add origin git@github.com:Rolias/new-github-name-goes-here.git
 git push -u origin master
 ```
 After those two commands are run, VScode can do push and pull

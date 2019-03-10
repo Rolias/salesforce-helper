@@ -3,3 +3,4 @@ node_modules
 .environment
 _local/
 !.eslintrc
+!.travis.yml
