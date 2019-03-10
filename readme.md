@@ -15,8 +15,8 @@ git init
 git remote add origin git@github.com:Rolias/new-github-name-goes-here.git
 git push -u origin master
 ```
+
 After those two commands are run, VScode can do push and pull
 
 Don't forget to `npm install`
 to install all the packages in the package.json
-

@@ -9,12 +9,12 @@
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
     "start": "npm-run-all --parallel security-check start:src lint:watch test:watch",
-    "start:src": "node lib/index.js",
-    "start:loop": "nodemon lib/index.js",
-    "security-check": "nsp check",
-    "lint": "esw src lib buildScripts --color",
+    "start:src": "node src/index.js",
+    "start:loop": "nodemon src/index.js",
+    "security-check": "npm audit",
+    "lint": "esw src src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter progress \"lib/**/*.test.js\"",
+    "test": "mocha --reporter progress \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
