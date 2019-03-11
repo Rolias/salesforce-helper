@@ -6,3 +6,5 @@ _local/
 !.eslintrc
 !.travis.yml
 !.gitignore
+!jsconfig.jsconfig
+!jsdoc.config.json

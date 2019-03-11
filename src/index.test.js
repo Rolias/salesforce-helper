@@ -1,23 +1,23 @@
-const chai = require("chai"),
+const chai = require('chai'),
   {expect} = chai
 chai.should()
-const logger = require("./util/logger")
+const logger = require('./util/logger')
 
-describe("name or description of test", () => {
+describe('name or description of test', () => {
   // beforeEach ( () =>{});
   // afterEach ( () =>{});
-  it("should pass theses", () => {
+  it('should pass theses', () => {
     expect(true).to.equal(true)
   })
 
-  it("should work with classes", () => {
+  it('should work with classes', () => {
     class Person {
       constructor(name) {
         this.state = {}
         this.name = name
       }
       doWork() {
-        return "yay"
+        return 'yay'
       }
       get name() {
         return this.state.name
@@ -37,11 +37,11 @@ describe("name or description of test", () => {
       }
     }
 
-    const e1 = new Employee("Tod", "CD")
-    e1.name.should.equal("Tod")
-    e1.name = "Fred"
-    e1.name.should.equal("Fred")
-    e1.title.should.equal("CD")
+    const e1 = new Employee('Tod', 'CD')
+    e1.name.should.equal('Tod')
+    e1.name = 'Fred'
+    e1.name.should.equal('Fred')
+    e1.title.should.equal('CD')
     logger.info(e1.state)
   })
 })
