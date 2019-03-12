@@ -1,7 +1,6 @@
 const chai = require('chai'),
   {expect} = chai
 chai.should()
-const logger = require('./util/logger')
 
 describe('name or description of test', () => {
   // beforeEach ( () =>{});
@@ -42,6 +41,5 @@ describe('name or description of test', () => {
     e1.name = 'Fred'
     e1.name.should.equal('Fred')
     e1.title.should.equal('CD')
-    logger.info(e1.state)
   })
 })

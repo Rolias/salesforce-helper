@@ -11,15 +11,16 @@
     "prestart": "node ./buildScripts/startMessage.js",
     "start": "run-s start:src",
     "build": "run-p security-check start:src lint:watch test:watch",
-    "start:src": "node src/index.js",
-    "start:loop": "nodemon src/index.js",
+    "start:src": "node src/main.js",
+    "start:loop": "nodemon src/main.js",
     "security-check": "npm audit",
     "lint": "esw src src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --use_strict --reporter progress \"src/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch",
+    "test": "mocha --use_strict  \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch --reporter min ",
     "test:cov": "nyc mocha \"src/**/*.test.js\"",
-    "watch": "run-p lint:watch test:watch"
+    "watch": "run-p lint:watch test:watch",
+    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.config.json src/**/*.js ./ReadMe.md"
   },
   "keywords": [
     "starter-kit"

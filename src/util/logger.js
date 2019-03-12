@@ -9,6 +9,9 @@ const {createLogger, format, transports} = require('winston')
 //   silly: 5 
 // };
 
+/**
+ * get the winston logger that writes to the console
+ */
 const logger = createLogger({
   level: 'debug',
   format: format.combine(

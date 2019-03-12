@@ -3,8 +3,13 @@
 This is a pretty bare bones starter kit. It does have support for mocha and linting. None of the linting or testing is run automatically. While there is a .travis.yml file it doesn't have to do anything. See the alm-starter-kit (Application Life Cycle management) for a more comprehensive Continuous Deployment approach.
 
 ## First steps
+Clone this repo into your dev folder and then rename the folder basic-starter-kit to the name of your project.  
+Clone via ssh using  
+`git clone git@github.com:Rolias/basic-starter-kit.git`  
+using https  
+`git clone https://github.com/Rolias/basic-starter-kit.git`  
 
-Modify the package.json file to refer to your package. Change the name, keywords,  and any other fields.
+Then modify the package.json file to refer to your package. Change the name, keywords,  and any other fields.
 
 ## Basic Git Stuff
 
