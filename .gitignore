@@ -3,7 +3,6 @@ node_modules
 .environment
 _local/
 .nyc_output
-/out
 !.eslintrc
 !.travis.yml
 !.gitignore

@@ -35,7 +35,7 @@
     "winston": "x"
   },
   "devDependencies": {
-    "@types/node": "x",
+    "@types/node": "^11.11.3",
     "chai": "x",
     "eslint": "x",
     "eslint-watch": "x",
