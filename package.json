@@ -1,5 +1,5 @@
 {
-  "name": "basic-starter-kit",
+  "name": "sf-helper",
   "private": true,
   "version": "1.0.0",
   "engines": {
@@ -9,7 +9,7 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Rolias/basic-starter-kit.git"
+    "url": "git@github.com:Rolias/sf-helper.git"
   },
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
