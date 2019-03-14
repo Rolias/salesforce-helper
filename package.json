@@ -6,7 +6,7 @@
     "node": ">10.0.0"
   },
   "description": "A basic project for running some node.js code with tests",
-  "main": "index.js",
+  "main": "main.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:Rolias/basic-starter-kit.git"
