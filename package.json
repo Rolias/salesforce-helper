@@ -7,6 +7,10 @@
   },
   "description": "A basic project for running some node.js code with tests",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Rolias/sf-helper.git"
+  }
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
     "start": "run-s start:src",
