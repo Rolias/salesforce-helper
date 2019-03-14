@@ -9,7 +9,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Rolias/sf-helper.git"
+    "url": "git@github.com:Rolias/basic-starter-kit.git"
   }
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
