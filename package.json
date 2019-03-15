@@ -21,6 +21,7 @@
     "lint": "esw src src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --use_strict  main.test.js \"src/**/*.test.js\"",
+    "test:int": "mocha --use_strict \"src/**/*.test.int.js\"",
     "test:watch": "npm run test -- --watch --reporter min ",
     "test:cov": "nyc mocha main.test.js \"src/**/*.test.js\"",
     "watch": "run-p lint:watch test:watch",
