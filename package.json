@@ -32,6 +32,8 @@
   "author": "Tod Gentille",
   "license": "MIT",
   "dependencies": {
+    "env-create": "^1.0.8",
+    "nforce": "^1.10.2",
     "winston": "x"
   },
   "devDependencies": {
