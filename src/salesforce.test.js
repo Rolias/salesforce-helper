@@ -24,7 +24,7 @@ describe('salesforce module', () => {
   before(() => {
     nforce.createConnection
     sandbox.stub(fs, 'readFile').returns(fakeCreds)
-    sandbox.stub(nforce, 'createConnection').returnValues('connection')
+    // sandbox.stub(nforce, 'createConnection').returnValues('connection')
   })
 
   it('${true should be true}', () => {
