@@ -14,9 +14,9 @@
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
     "start": "run-s start:src",
-    "build": "run-p security-check start:src lint:watch test:watch",
-    "start:src": "node src/main.js",
-    "start:loop": "nodemon src/main.js",
+    "dev": "run-p  lint:watch test:watch",
+    "start:src": "node main.js",
+    "start:loop": "nodemon main.js",
     "security-check": "npm audit",
     "lint": "esw src src buildScripts --color",
     "lint:watch": "npm run lint -- --watch",
@@ -24,8 +24,12 @@
     "test:int": "mocha --use_strict \"src/**/*.test.int.js\"",
     "test:watch": "npm run test -- --watch --reporter min ",
     "test:cov": "nyc mocha main.test.js \"src/**/*.test.js\"",
+    "test:all": "nyc run-p  'test -- --forbid-only' 'test:int -- --forbid-only'",
     "watch": "run-p lint:watch test:watch",
-    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.config.json src/**/*.js ./ReadMe.md"
+    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.config.json src/**/*.js ./ReadMe.md",
+    "build:ver": "npm version patch  ",
+    "build:pub": "npm publish ",
+    "build": "npm-run-all --parallel lint test:all security-check   --serial  build:ver build:pub "
   },
   "keywords": [
     "starter-kit"

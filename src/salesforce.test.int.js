@@ -1,6 +1,6 @@
 const chai = require('chai')
 chai.should()
-const logger = require('./util/logger');
+const logger = require('./util/logger')
 const {stringify} = require('./util/helper')
 const Sf = require('./salesforce')
 const sampleQuery = 'SELECT ID, Name FROM Account LIMIT 10'
@@ -8,7 +8,11 @@ const sampleQuery = 'SELECT ID, Name FROM Account LIMIT 10'
 let salesforce
 before(async () => {
   //  await salesforce.init()
-  salesforce = await Sf.create('/Users/tod-gentille/dev/node/ENV_VARS/salesforce.env.json')
+  const param = {
+    path: '/Users/tod-gentille/dev/node/ENV_VARS/salesforce.env.json',
+    type: Sf.CRED_TYPE.DEVELOPMENT,
+  }
+  salesforce = await Sf.create(param)
 })
 
 // eslint-disable-next-line prefer-arrow-callback

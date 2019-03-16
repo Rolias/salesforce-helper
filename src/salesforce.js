@@ -5,26 +5,26 @@ const envCreate = require('env-create')
 const logger = require('./util/logger')
 const {stringify} = require('./util/helper')
 /** @class */
+
+
 class Salesforce {
   /**
  * Create the TrelloPLus class to add more trello functions
  * @param {?string} pathString path to the trello JSON credentials file
  */
 
-  constructor(pathStringToCreds) {
-    const credType = ()
-    const param = {}
-    if (pathStringToCreds !== undefined) {
-      param.path = pathStringToCreds
-    }
-    const result = envCreate.load(param)
+  constructor(param) {
+    const credType = (param && param.type) || Salesforce.CRED_TYPE.PRODUCTION
+    const path = (param && {path: param.path}) || {}
+
+    const result = envCreate.load(path)
     if (result.status === false) {
       const errorMsg = `FATAL ERROR reading credentials. ${stringify(result)}`
       logger.error(errorMsg)
       throw (errorMsg)
     }
-
-    const sfAuth = JSON.parse(process.env.sfHelperDev)
+    const sfAuth = credType === Salesforce.CRED_TYPE.PRODUCTION ? JSON.parse(process.env.sfHelperProduction)
+      : JSON.parse(process.env.sfHelperDevelopment)
 
     this.clientId = sfAuth.clientId
     this.clientSecret = sfAuth.clientSecret
@@ -34,17 +34,16 @@ class Salesforce {
       password: sfAuth.password,
       securityToken: sfAuth.securityToken,
     }
-    console.log(this.authObj)
 
   }
 
   /**
    * 
-   * @param {string} pathStringToCreds 
+   * @param {{path,type}} param  
    * @returns{Promise<{Salesforce}>}
    */
-  static async create(pathStringToCreds) {
-    const instance = new Salesforce(pathStringToCreds)
+  static async create(param) {
+    const instance = new Salesforce(param)
     instance.createConnection()
     await instance.authenticate()
     return instance
@@ -76,7 +75,6 @@ class Salesforce {
     return new Promise((resolve, reject) => {
       this.org.authenticate(this.authObj, (error, response) => {
         if (!error) {
-          console.log("Authenticated")
           resolve(response)
         } else {
           reject(error)
@@ -86,12 +84,11 @@ class Salesforce {
   }
 
   /**
- * Perform a SOQL Query
- * @param {string} queryString - SOQL query
- * @example query('SELECT ID, Name FROM Account LIMIT 10')
- */
+  * Perform a SOQL Query
+  * @param {string} queryString - SOQL query string
+  * @example query('SELECT ID, Name FROM Account LIMIT 10')
+  */
   query(queryString) {
-    console.log("doing the query")
     return new Promise((resolve, reject) => {
       this.org.query(
         {
@@ -99,10 +96,8 @@ class Salesforce {
         },
         (error, response) => {
           if (!error) {
-            console.log("Query finished")
             resolve(response.records)
           } else {
-            console.log("Error")
             reject(error)
           }
         }
@@ -110,12 +105,22 @@ class Salesforce {
     })
   }
 
-  async sampleQuery() {
-    const result = await this.query('SELECT ID, Name FROM Account LIMIT 10')
-    logger.info(result)
-    return result
+  /**
+   * Gets the payment amount, published date and play by play pub amount for the given course id
+   * @param {string} courseId 
+   * returns {Promise<Object>}
+   */
+  async getCourseFinanceInfo(courseId) {
+    const fields = 'Completion_Payment_Amount__c, Published_Date__c, Play_by_Play_Publication_Amount__c '
+    const fromClause = `from Opportunity where Course_ID__c = '${courseId}'`
+    const queryString = `Select ${fields} ${fromClause}`
+    return this.query(queryString)
   }
+}
 
+Salesforce.CRED_TYPE = {
+  PRODUCTION: 1,
+  DEVELOPMENT: 2,
 }
 
 module.exports = Salesforce
