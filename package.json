@@ -1,6 +1,5 @@
 {
   "name": "salesforce-helper",
-  "private": true,
   "version": "1.0.1",
   "engines": {
     "node": ">10.0.0"
@@ -9,7 +8,7 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Rolias/sf-helper.git"
+    "url": "git@github.com:Rolias/salesforce-helper.git"
   },
   "scripts": {
     "prestart": "node ./buildScripts/startMessage.js",
