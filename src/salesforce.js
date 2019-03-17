@@ -45,6 +45,7 @@ class Salesforce {
    * @returns{Promise<{Salesforce}>}
    */
   static async create(param) {
+    console.log(param)
     const instance = new Salesforce(param)
     instance.createConnection()
     await instance.authenticate()
@@ -68,22 +69,16 @@ class Salesforce {
       clientId: this.clientId,
       clientSecret: this.clientSecret,
       redirectUri: 'http://localhost:3000/oauth/callback',
-      environment: Salesforce.CRED_TYPE.getType(this.credType),
+      environment: 'production', // Salesforce.CRED_TYPE.getType(this.credType),
       mode: 'single',
     })
   }
 
-  authenticate() {
-
-    return new Promise((resolve, reject) => {
-      this.org.authenticate(this.authObj, (error, response) => {
-        if (!error) {
-          resolve(response)
-        } else {
-          reject(error)
-        }
-      })
-    })
+  /**
+   * @returns {Promise}
+   */
+  async authenticate() {
+    return this.org.authenticate(this.authObj)
   }
 
   /**
@@ -91,21 +86,8 @@ class Salesforce {
   * @param {string} queryString - SOQL query string
   * @example query('SELECT ID, Name FROM Account LIMIT 10')
   */
-  query(queryString) {
-    return new Promise((resolve, reject) => {
-      this.org.query(
-        {
-          query: queryString,
-        },
-        (error, response) => {
-          if (!error) {
-            resolve(response.records)
-          } else {
-            reject(error)
-          }
-        }
-      )
-    })
+  async query(queryString) {
+    return await this.org.query({query: queryString})
   }
 
   /**
@@ -114,35 +96,35 @@ class Salesforce {
    * @returns {Promise<Object>} - the created record
    * @example let account = createRecord('Account',{Name:'new name',Phone:'800-555-1212'})
    */
-  createRecord(param) {
+  async createRecord(param) {
     const sobject = nforce.createSObject(param.sObjectName, param.recordData)
-    return new Promise((resolve, reject) => {
-      this.org.insert({sobject}, (error, response) => {
-        if (error) {
-          reject(error)
-        } else {
-          resolve(response)
-        }
-      })
-    })
+    return await this.org.insert({sobject})
   }
 
   /**
    * Update a record
    * @param {{sObjectName:string, recordDataWithId:object}} param 
    */
-  updateRecord(param) {
+  async updateRecord(param) {
     const sobject = nforce.createSObject(param.sObjectName, param.recordDataWithId)
-    return new Promise((resolve, reject) => {
-      this.org.update({sobject}, (error, response) => {
-        if (error) {
-          reject(error)
-        } else {
-          resolve(response)
-        }
-      })
-    })
+    return await this.org.update({sobject})
   }
+
+  async upsertRecord(param) {
+    const {recordDataWithId} = param
+    let sobject = nforce.createSObject(param.sObjectName)
+    const recordId = recordDataWithId.id ? recordDataWithId.id : ''
+    sobject.setExternalId('Id', recordId)
+    sobject = Object.assign(sobject, recordDataWithId)
+    return await this.org.upsert({sobject, requestOpts: {method: !recordId ? 'POST' : 'PATCH'}})
+  }
+
+
+  async deleteRecord(param) {
+    const sobject = nforce.createSObject(param.sObjectName, param.recordDataWithId)
+    return await this.org.delete({sobject})
+  }
+
 
   /**
    * Gets the payment amount, published date and play by play pub amount for the given course id

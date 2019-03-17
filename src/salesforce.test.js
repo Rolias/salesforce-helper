@@ -63,9 +63,8 @@ describe('Salesforce class', () => {
     it('should invoke nforce authenticate with auth settings', async () => {
       const sf = new Sf()
       sf.createConnection()
-      const stubby = sandbox.stub(sf.org, 'authenticate').yields(null, 'response')
-      const result = await sf.authenticate()
-      console.log('RESULT', result)
+      const stubby = sandbox.stub(sf.org, 'authenticate').resolves('')// .yields(null, 'response')
+      await sf.authenticate() // puts oauth object on the org property in single mode.
       const {username, password, securityToken} = fakeCredsObj.sfHelperProduction
       const expected = {username, password, securityToken}
       const [authObj] = stubby.getCall(0).args
