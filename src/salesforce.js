@@ -14,7 +14,7 @@ class Salesforce {
  */
 
   constructor(param) {
-    const credType = (param && param.type) || Salesforce.CRED_TYPE.PRODUCTION
+    this.credType = (param && param.type) || Salesforce.CRED_TYPE.PRODUCTION
     const path = (param && {path: param.path}) || {}
 
     const result = envCreate.load(path)
@@ -23,8 +23,10 @@ class Salesforce {
       logger.error(errorMsg)
       throw (errorMsg)
     }
-    const sfAuth = credType === Salesforce.CRED_TYPE.PRODUCTION ? JSON.parse(process.env.sfHelperProduction)
-      : JSON.parse(process.env.sfHelperDevelopment)
+
+    const sfAuth = this.credType === Salesforce.CRED_TYPE.PRODUCTION ?
+      JSON.parse(process.env.sfHelperProduction) :
+      JSON.parse(process.env.sfHelperDevelopment)
 
     this.clientId = sfAuth.clientId
     this.clientSecret = sfAuth.clientSecret
@@ -66,12 +68,13 @@ class Salesforce {
       clientId: this.clientId,
       clientSecret: this.clientSecret,
       redirectUri: 'http://localhost:3000/oauth/callback',
-      environment: 'production',
+      environment: Salesforce.CRED_TYPE.getType(this.credType),
       mode: 'single',
     })
   }
 
   authenticate() {
+
     return new Promise((resolve, reject) => {
       this.org.authenticate(this.authObj, (error, response) => {
         if (!error) {
@@ -106,6 +109,42 @@ class Salesforce {
   }
 
   /**
+   * Create a new record on the 
+   * @param {{sObjectName:string, recordData:object}} param  
+   * @returns {Promise<Object>} - the created record
+   * @example let account = createRecord('Account',{Name:'new name',Phone:'800-555-1212'})
+   */
+  createRecord(param) {
+    const sobject = nforce.createSObject(param.sObjectName, param.recordData)
+    return new Promise((resolve, reject) => {
+      this.org.insert({sobject}, (error, response) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(response)
+        }
+      })
+    })
+  }
+
+  /**
+   * Update a record
+   * @param {{sObjectName:string, recordDataWithId:object}} param 
+   */
+  updateRecord(param) {
+    const sobject = nforce.createSObject(param.sObjectName, param.recordDataWithId)
+    return new Promise((resolve, reject) => {
+      this.org.update({sobject}, (error, response) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(response)
+        }
+      })
+    })
+  }
+
+  /**
    * Gets the payment amount, published date and play by play pub amount for the given course id
    * @param {string} courseId 
    * returns {Promise<Object>}
@@ -121,6 +160,12 @@ class Salesforce {
 Salesforce.CRED_TYPE = {
   PRODUCTION: 1,
   DEVELOPMENT: 2,
+  properties: {
+    1: {type: 'production'},
+    2: {type: 'development'},
+  },
+  getType: (value) => Salesforce.CRED_TYPE.properties[value].type,
 }
+
 
 module.exports = Salesforce
