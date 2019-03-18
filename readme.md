@@ -2,6 +2,7 @@
 
 ## Installation
 
+This package is currently in ALPHA stage development. It is not intended for outside use yet. You're welcome to use it but expect breaking changes at the patch level. This notice will be remov
 `npm install salesforce-helper`
 
 ## Usage

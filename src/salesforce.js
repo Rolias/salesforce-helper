@@ -12,7 +12,6 @@ class Salesforce {
  * Create the TrelloPLus class to add more trello functions
  * @param {?string} pathString path to the trello JSON credentials file
  */
-
   constructor(param) {
     this.credType = (param && param.type) || Salesforce.CRED_TYPE.PRODUCTION
     const path = (param && {path: param.path}) || {}
@@ -45,20 +44,10 @@ class Salesforce {
    * @returns{Promise<{Salesforce}>}
    */
   static async create(param) {
-    console.log(param)
     const instance = new Salesforce(param)
     instance.createConnection()
     await instance.authenticate()
     return instance
-  }
-
-
-  /** Do the authentication steps. Since it's asynchronous I didn't want
-   * it as part of the constructor. 
-  */
-  async init() {
-    this.createConnection()
-    return await this.authenticate()
   }
 
   createConnection() {
@@ -91,31 +80,36 @@ class Salesforce {
   }
 
   /**
-   * Create a new record on the 
-   * @param {{sObjectName:string, recordData:object}} param  
-   * @returns {Promise<Object>} - the created record
-   * @example let account = createRecord('Account',{Name:'new name',Phone:'800-555-1212'})
-   */
-  async createRecord(param) {
-    const sobject = nforce.createSObject(param.sObjectName, param.recordData)
-    return await this.org.insert({sobject})
-  }
-
-  /**
-   * Update a record
-   * @param {{sObjectName:string, recordDataWithId:object}} param 
-   */
+ * Update a record
+ * @param {{sObjectName:string, recordDataWithId:object}} param 
+ */
   async updateRecord(param) {
     const sobject = nforce.createSObject(param.sObjectName, param.recordDataWithId)
     return await this.org.update({sobject})
   }
 
+  /**
+   * Insert a new record on the specified sObject 
+   * @param {{sObjectName:string, recordData:object}} param  
+   * @returns {Promise<Object>} - the created record
+   * @example let account = createRecord('Account',{Name:'new name',Phone:'800-555-1212'})
+   */
+  async insertRecord(param) {
+    const sobject = nforce.createSObject(param.sObjectName, param.recordData)
+    return await this.org.insert({sobject})
+  }
+
+  /**
+   * 
+   * @param {{sObjectName:string,recordDataWithId:object}} param 
+   */
   async upsertRecord(param) {
     const {recordDataWithId} = param
     let sobject = nforce.createSObject(param.sObjectName)
     const recordId = recordDataWithId.id ? recordDataWithId.id : ''
     sobject.setExternalId('Id', recordId)
-    sobject = Object.assign(sobject, recordDataWithId)
+    // sobject = Object.assign(sobject, recordDataWithId)
+    sobject = {...sobject, ...recordDataWithId}
     return await this.org.upsert({sobject, requestOpts: {method: !recordId ? 'POST' : 'PATCH'}})
   }
 

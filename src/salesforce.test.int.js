@@ -21,10 +21,8 @@ describe('name or description of test', async function () {
   this.timeout(5000)
 
   it('query() should get ten records back', async () => {
-
-    console.log('init done')
-
     const queryResult = await salesforce.query(sampleQuery)
+    console.log(queryResult)
     for (const record of queryResult.records) {
       logger.verbose(stringify(record))
     }

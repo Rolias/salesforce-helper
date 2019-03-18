@@ -1,0 +1,16 @@
+{
+  "sfHelperProduction": {
+    "clientId": "FakeProductionClientId",
+    "clientSecret": "FakeProductionClientSecret",
+    "securityToken": "FakeProductionSecurityToken",
+    "username": "mickey@mouse.com",
+    "password": "FakeProductionPassword"
+  },
+  "sfHelperDevelopment": {
+    "clientId": "FakeDevelopmentClientId",
+    "clientSecret": "FakeDevelopmentClientSecret",
+    "securityToken": "FakeDevelopmentSecurityToken",
+    "username": "mickey@mouse.com",
+    "password": "FakeDevelopmentPassword"
+  }
+}
