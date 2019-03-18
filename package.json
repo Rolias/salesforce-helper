@@ -25,7 +25,7 @@
     "test:cov": "nyc mocha main.test.js \"src/**/*.test.js\"",
     "test:all": "nyc run-p  'test -- --forbid-only' 'test:int -- --forbid-only'",
     "watch": "run-p lint:watch test:watch",
-    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.config.json src/**/*.js ./ReadMe.md",
+    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.config.json src/**/*.js src/*.js ./ReadMe.md",
     "build:ver": "npm version patch   ",
     "build:pub": "npm publish --tag alpha.0",
     "build": "npm-run-all --parallel lint test:all    --serial  build:ver build:pub "
